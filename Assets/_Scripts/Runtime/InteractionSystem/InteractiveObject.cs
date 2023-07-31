@@ -1,5 +1,4 @@
 using TripleA.Runtime.Entity.Player;
-using _Scripts.Runtime.Managers.UIManager;
 using UnityEngine;
 using TripleA.Core.Interfaces;
 
@@ -9,13 +8,23 @@ namespace _Scripts.Runtime.InteractionSystem
     {
         [SerializeField] string interactionPromptMessage;
 
+        protected PlayerInteraction player;
+
         readonly string animationName = "isAnimating";
         public virtual bool CanBeInteracted { get; private set; }
         public Animator Animator { get; set; }
 
+        public enum InteractiveType
+        {
+            TreasureChest,
+            MedicineBox
+        }
+
+        [SerializeField] InteractiveType _type;
+        public InteractiveType Type => _type;
         void OnTriggerEnter(Collider other)
         {
-            PlayerInteraction player = other.GetComponent<PlayerInteraction>();
+            player = GetComponent<PlayerInteraction>();
             
             if (player != null)
             {
@@ -30,6 +39,7 @@ namespace _Scripts.Runtime.InteractionSystem
         void OnTriggerExit(Collider other)
         {
             PlayerInteraction player = other.GetComponent<PlayerInteraction>();
+            
             
             if (player != null)
             {

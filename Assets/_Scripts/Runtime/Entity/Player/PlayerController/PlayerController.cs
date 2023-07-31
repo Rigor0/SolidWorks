@@ -11,8 +11,8 @@ namespace TripleA.Runtime.Entity.Player.Controller
         [SerializeField] PlayerSettings _settings;
         public PlayerSettings Settings => _settings;
 
-        [SerializeField] CameraController _cam;
-        public CameraController Cam => _cam;
+        [SerializeField] ThirdPersonCameraController _cam;
+        public ThirdPersonCameraController Cam => _cam;
 
         PlayerBaseState _currentState;
 

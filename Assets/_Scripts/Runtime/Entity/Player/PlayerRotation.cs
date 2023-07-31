@@ -7,7 +7,7 @@ namespace TripleA.Runtime.Entity.Player
 {
     public class PlayerRotation : IRotatable
     {
-        private CameraController _camController;
+        private ThirdPersonCameraController _camController;
 
         float _rotationSmoothVelocity;
 
@@ -15,7 +15,7 @@ namespace TripleA.Runtime.Entity.Player
 
         public Vector3 MoveDir { get ; set ; }
 
-        public PlayerRotation(float rotationSmoothVelocity, float rotationSmoothTime, CameraController camController)
+        public PlayerRotation(float rotationSmoothVelocity, float rotationSmoothTime, ThirdPersonCameraController camController)
         {
             _rotationSmoothVelocity = rotationSmoothVelocity;
 
