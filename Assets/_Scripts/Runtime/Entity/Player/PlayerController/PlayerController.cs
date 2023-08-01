@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using _Scripts.Settings.PlayerSettings;
 using TripleA.Core.Interfaces;
-using Camera.Core;
+using CameraController.Core;
 
 
 namespace TripleA.Runtime.Entity.Player.Controller
@@ -30,19 +30,22 @@ namespace TripleA.Runtime.Entity.Player.Controller
 
         PlayerStateFactory _states;
 
-        IMovable playerMovement;
-        public IMovable PlayerMovement => playerMovement;
+        IMovable _playerMovement;
+        public IMovable PlayerMovement => _playerMovement;
 
-        PlayerInput playerInput;
+        PlayerInput _playerInput;
 
-        public PlayerInput PlayerInput => playerInput;
+        public PlayerInput PlayerInput => _playerInput;
 
-        IRotatable playerRotation;
+        IRotatable _playerRotation;
 
-        public IRotatable PlayerRotation => playerRotation;
+        public IRotatable PlayerRotation => _playerRotation;
 
-        PlayerAnimation playerAnimation;
-        public PlayerAnimation PlayerAnimation => playerAnimation;
+        PlayerAnimation _playerAnimation;
+        public PlayerAnimation PlayerAnimation => _playerAnimation;
+
+        PlayerInteraction _playerInteraction;
+        public PlayerInteraction PlayerInteraction => _playerInteraction;
 
         void Awake()
         {
@@ -57,10 +60,11 @@ namespace TripleA.Runtime.Entity.Player.Controller
 
         void InitClasses()
         {
-            playerInput = new PlayerInput();
-            playerRotation = new PlayerRotation(Settings.turnSmoothVelocity, Settings.smoothRotationTime, Cam);
-            playerMovement = new PlayerMovement(GetComponent<CharacterController>());
-            playerAnimation = new PlayerAnimation(GetComponent<Animator>());
+            _playerInput = new PlayerInput();
+            _playerRotation = new PlayerRotation(Settings.turnSmoothVelocity, Settings.smoothRotationTime, Cam);
+            _playerMovement = new PlayerMovement(GetComponent<CharacterController>());
+            _playerAnimation = new PlayerAnimation(GetComponent<Animator>());
+            _playerInteraction = GetComponent<PlayerInteraction>();
         }
 
         void InitStartState()

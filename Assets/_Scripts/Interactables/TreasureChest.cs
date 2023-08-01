@@ -1,7 +1,7 @@
 ﻿using _Scripts.Runtime.InteractionSystem;
 using UnityEngine;
-using TripleA.Core;
 using TripleA.Runtime.Entity.Player;
+using TripleA.Runtime.Managers;
 
 namespace TripleA.Interactables
 {
@@ -20,16 +20,16 @@ namespace TripleA.Interactables
         void Start()
         {
             Animator = GetComponent<Animator>();
+            AudioSource = GetComponent<AudioSource>();
         }
 
-        public override void Interact(PlayerInteraction playerInteraction)
+        public override void Interact(PlayerInteraction player)
         {
             _wasOpened = true;
 
-            playerInteraction = player;
+            AudioManager.Instance.StopInteractableSound(AudioSource);
 
-            player.GetTreasure();
-            //EventManager.OnPlayerInteracted?.Invoke(this);
+            Animator.SetTrigger("isInteracted");
         }
     }
 }

@@ -1,30 +1,24 @@
 using TripleA.Runtime.Entity.Player;
 using UnityEngine;
 using TripleA.Core.Interfaces;
+using TripleA.Runtime.Managers;
+using TripleA.Core;
 
 namespace _Scripts.Runtime.InteractionSystem
 {
-    public abstract class InteractiveObject : MonoBehaviour, IAnimatable
+    [RequireComponent(typeof(Animator),typeof(AudioSource))]
+    public abstract class InteractiveObject : MonoBehaviour, IAnimatable, ISoundable
     {
-        [SerializeField] string interactionPromptMessage;
-
-        protected PlayerInteraction player;
+        [SerializeField] string _prompt;
 
         readonly string animationName = "isAnimating";
         public virtual bool CanBeInteracted { get; private set; }
         public Animator Animator { get; set; }
+        public AudioSource AudioSource { get; set; }
 
-        public enum InteractiveType
-        {
-            TreasureChest,
-            MedicineBox
-        }
-
-        [SerializeField] InteractiveType _type;
-        public InteractiveType Type => _type;
         void OnTriggerEnter(Collider other)
         {
-            player = GetComponent<PlayerInteraction>();
+            PlayerInteraction player = other.GetComponent<PlayerInteraction>();
             
             if (player != null)
             {
@@ -32,6 +26,13 @@ namespace _Scripts.Runtime.InteractionSystem
 
                 SetInteractableAnimation();
 
+                if (CanBeInteracted)
+                {
+                    AudioManager.Instance.PlayInteractableSound(AudioSource);
+
+                    UIManager.Instance.ShowPrompt(_prompt);
+                }
+                
                 player.AddInteractable(this);
             }
         }
@@ -45,7 +46,11 @@ namespace _Scripts.Runtime.InteractionSystem
             {
                 CanBeInteracted = false;
 
+                AudioManager.Instance.StopInteractableSound(AudioSource);
+
                 SetInteractableAnimation();
+
+                UIManager.Instance.HidePrompt();
 
                 player.RemoveInteractable(this);
             }
@@ -54,11 +59,6 @@ namespace _Scripts.Runtime.InteractionSystem
         protected virtual void SetInteractableAnimation()
         {
             Animator.SetBool(animationName, CanBeInteracted);
-        }
-
-        protected virtual void DestroyedAnimation()
-        {
-
         }
 
         public abstract void Interact(PlayerInteraction player);

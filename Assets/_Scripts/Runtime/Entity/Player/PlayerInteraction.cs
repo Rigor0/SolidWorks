@@ -2,38 +2,42 @@
 using UnityEngine;
 using TripleA.Core;
 using TripleA.Interactables;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace TripleA.Runtime.Entity.Player
 {
     public class PlayerInteraction : MonoBehaviour
     {
-        private void OnEnable()
-        {
-            //EventManager.OnPlayerInteracted += OnPlayerInteractedHandler;
-        }
-
-        //private void OnPlayerInteractedHandler(InteractiveObject @object)
-        //{
-            
-        //}
-
-        public void GetTreasure()
-        {
-            Debug.Log("Treasure getted");
-        }
+        List<InteractiveObject> _interactables = new List<InteractiveObject>();
 
         public void AddInteractable(InteractiveObject interactable)
         {
-            Debug.Log(interactable.name + "added.");
+            _interactables.Add(interactable);
         }
 
         public void RemoveInteractable(InteractiveObject interactable)
         {
-            Debug.Log(interactable.name + "removed.");
+            _interactables.Remove(interactable);
         }
 
-        public void GetReward(int amount)
+        public void Interact()
         {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                var interactable = _interactables.FirstOrDefault();
 
+                if (interactable != null)
+                {
+                    if(interactable.CanBeInteracted)
+                        interactable.Interact(this);
+                }
+            }
+        }
+
+        private void Update()
+        {
+            Interact();
         }
     }
 }

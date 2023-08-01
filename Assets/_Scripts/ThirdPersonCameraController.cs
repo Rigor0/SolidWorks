@@ -1,7 +1,7 @@
 using UnityEngine;
 using TripleA.Core;
 
-namespace Camera.Core
+namespace CameraController.Core
 {
     public class ThirdPersonCameraController : Singleton<ThirdPersonCameraController>
     {
@@ -9,6 +9,7 @@ namespace Camera.Core
 
         private void Start()
         {
+            Cursor.lockState = CursorLockMode.None;
             currentTransform = GetComponent<Transform>();
         }
         public Transform GetTransform()

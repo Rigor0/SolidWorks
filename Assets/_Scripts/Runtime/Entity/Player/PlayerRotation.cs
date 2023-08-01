@@ -1,4 +1,4 @@
-﻿using Camera.Core;
+﻿using CameraController.Core;
 using UnityEngine;
 using TripleA.Core.Interfaces;
 

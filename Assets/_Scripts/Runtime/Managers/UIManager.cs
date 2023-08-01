@@ -2,17 +2,17 @@
 using TMPro;
 using UnityEngine;
 
-namespace _Scripts.Runtime.Managers.UIManager
+namespace TripleA.Runtime.Managers
 {
     public class UIManager : Singleton<UIManager>
     {
         [SerializeField] TMP_Text _prompt;
-        public void ShowPromt(string prompt)
+        public void ShowPrompt(string prompt)
         {
             _prompt.text = prompt;
         }
 
-        public void HidePromt()
+        public void HidePrompt()
         {
             _prompt.text = null;
         }

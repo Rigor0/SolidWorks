@@ -1,4 +1,5 @@
-﻿using TripleA.Runtime.Entity.Player.Controller;
+﻿using TripleA.Core;
+using TripleA.Runtime.Entity.Player.Controller;
 
 namespace TripleA.Runtime.Entity.Player
 {
@@ -37,5 +38,9 @@ namespace TripleA.Runtime.Entity.Player
         protected void SetSuperState() { }
         protected void SetSubState() { }
 
+        protected void RaiseInteractionAction()
+        {
+            EventManager.OnPlayerInteracted?.Invoke();
+        }
     }
 }
