@@ -47,6 +47,9 @@ namespace TripleA.Runtime.Entity.Player
             _controller.PlayerRotation.Rotate(_controller.PlayerInput.Horizontal, _controller.PlayerInput.Vertical, _controller.transform);
             _controller.PlayerMovement.Movement(_controller.transform, _controller.PlayerRotation.MoveDir);
 
+            if (_controller.PlayerInput.IsInteractPressed)
+                _controller.PlayerInteraction.Interact();
+
             CheckSwitchState();
         }
     }

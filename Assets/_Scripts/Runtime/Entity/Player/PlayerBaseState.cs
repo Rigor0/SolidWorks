@@ -37,10 +37,5 @@ namespace TripleA.Runtime.Entity.Player
 
         protected void SetSuperState() { }
         protected void SetSubState() { }
-
-        protected void RaiseInteractionAction()
-        {
-            EventManager.OnPlayerInteracted?.Invoke();
-        }
     }
 }

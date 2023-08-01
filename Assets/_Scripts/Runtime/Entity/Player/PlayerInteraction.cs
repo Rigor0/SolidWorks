@@ -1,7 +1,5 @@
 ﻿using _Scripts.Runtime.InteractionSystem;
 using UnityEngine;
-using TripleA.Core;
-using TripleA.Interactables;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,21 +21,13 @@ namespace TripleA.Runtime.Entity.Player
 
         public void Interact()
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            var interactable = _interactables.FirstOrDefault();
+
+            if (interactable != null)
             {
-                var interactable = _interactables.FirstOrDefault();
-
-                if (interactable != null)
-                {
-                    if(interactable.CanBeInteracted)
-                        interactable.Interact(this);
-                }
+                if (interactable.CanBeInteracted)
+                    interactable.Interact(this);
             }
-        }
-
-        private void Update()
-        {
-            Interact();
         }
     }
 }
