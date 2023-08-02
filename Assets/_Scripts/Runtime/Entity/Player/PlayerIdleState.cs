@@ -1,4 +1,5 @@
-﻿using TripleA.Runtime.Entity.Player.Controller;
+﻿using TripleA.Core;
+using TripleA.Runtime.Entity.Player.Controller;
 using UnityEngine;
 
 namespace TripleA.Runtime.Entity.Player
@@ -44,8 +45,7 @@ namespace TripleA.Runtime.Entity.Player
         {
             _controller.PlayerRotation.Rotate(_controller.PlayerInput.Horizontal, _controller.PlayerInput.Vertical, _controller.transform);
 
-            if (_controller.PlayerInput.IsInteractPressed)
-                _controller.PlayerInteraction.Interact();
+            SetAim();
 
             CheckSwitchState();
         }

@@ -37,5 +37,16 @@ namespace TripleA.Runtime.Entity.Player
 
         protected void SetSuperState() { }
         protected void SetSubState() { }
+
+        protected void SetAim()
+        {
+            if (_controller.PlayerInput.IsInteractPressed)
+                _controller.PlayerInteraction.Interact();
+
+            if (_controller.PlayerInput.IsAimPressed)
+                EventManager.OnPlayerAimed?.Invoke(_controller.PlayerInput.IsAimPressed);
+            else
+                EventManager.OnPlayerAimed?.Invoke(_controller.PlayerInput.IsAimPressed);
+        }
     }
 }

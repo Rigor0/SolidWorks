@@ -12,6 +12,7 @@ namespace TripleA.Runtime.Entity.Player
         public float Horizontal => Input.GetAxisRaw(horizontal);
         public float Vertical => Input.GetAxisRaw(vertical);
         public bool IsInteractPressed => Input.GetKeyDown(KeyCode.E);
+        public bool IsAimPressed => Input.GetKey(KeyCode.Mouse1);
     }
 
 }

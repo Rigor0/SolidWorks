@@ -5,22 +5,22 @@ namespace TripleA.Runtime.Entity.Player
 {
     public class PlayerAnimation : IAnimatable
     {
-        Animator _animator;
-        public Animator Animator => _animator;
+        Animator m_animator;
+        public Animator Animator => m_animator;
 
-        int _velocityHash;
+        int m_velocityHash;
 
         public PlayerAnimation(Animator animator)
         {
-            _velocityHash = Animator.StringToHash("Velocity");
+            m_velocityHash = Animator.StringToHash("Velocity");
 
-            _animator = animator;
+            m_animator = animator;
         }
 
 
         public void MovementAnimation(float velocity)
         {
-            _animator.SetFloat(_velocityHash, velocity);            
+            m_animator.SetFloat(m_velocityHash, velocity);            
         }
     }
 }

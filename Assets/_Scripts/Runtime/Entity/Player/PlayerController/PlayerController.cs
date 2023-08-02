@@ -2,50 +2,53 @@
 using _Scripts.Settings.PlayerSettings;
 using TripleA.Core.Interfaces;
 using CameraController.Core;
+using UnityEngine.Animations.Rigging;
 
 
 namespace TripleA.Runtime.Entity.Player.Controller
 {
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField] PlayerSettings _settings;
-        public PlayerSettings Settings => _settings;
+        [SerializeField] Rig m_aimRig;
 
-        [SerializeField] ThirdPersonCameraController _cam;
-        public ThirdPersonCameraController Cam => _cam;
+        [SerializeField] PlayerSettings m_settings;
+        public PlayerSettings Settings => m_settings;
 
-        PlayerBaseState _currentState;
+        [SerializeField] ThirdPersonCameraController m_cam;
+        public ThirdPersonCameraController Cam => m_cam;
+
+        PlayerBaseState m_currentState;
 
         public PlayerBaseState CurrentState 
         { 
             get 
             {
-                return _currentState; 
+                return m_currentState; 
             } 
             set 
             { 
-                _currentState = value; 
+                m_currentState = value; 
             } 
         }
 
-        PlayerStateFactory _states;
+        PlayerStateFactory m_states;
 
-        IMovable _playerMovement;
-        public IMovable PlayerMovement => _playerMovement;
+        IMovable m_playerMovement;
+        public IMovable PlayerMovement => m_playerMovement;
 
-        PlayerInput _playerInput;
+        PlayerInput m_playerInput;
 
-        public PlayerInput PlayerInput => _playerInput;
+        public PlayerInput PlayerInput => m_playerInput;
 
-        IRotatable _playerRotation;
+        IRotatable m_playerRotation;
 
-        public IRotatable PlayerRotation => _playerRotation;
+        public IRotatable PlayerRotation => m_playerRotation;
 
-        PlayerAnimation _playerAnimation;
-        public PlayerAnimation PlayerAnimation => _playerAnimation;
+        PlayerAnimation m_playerAnimation;
+        public PlayerAnimation PlayerAnimation => m_playerAnimation;
 
-        PlayerInteraction _playerInteraction;
-        public PlayerInteraction PlayerInteraction => _playerInteraction;
+        PlayerInteraction m_playerInteraction;
+        public PlayerInteraction PlayerInteraction => m_playerInteraction;
 
         void Awake()
         {
@@ -55,24 +58,24 @@ namespace TripleA.Runtime.Entity.Player.Controller
 
         void Update()
         {
-            _currentState.UpdateState();
+            m_currentState.UpdateState();
         }
 
         void InitClasses()
         {
-            _playerInput = new PlayerInput();
-            _playerRotation = new PlayerRotation(Settings.turnSmoothVelocity, Settings.smoothRotationTime, Cam);
-            _playerMovement = new PlayerMovement(GetComponent<CharacterController>());
-            _playerAnimation = new PlayerAnimation(GetComponent<Animator>());
-            _playerInteraction = GetComponent<PlayerInteraction>();
+            m_playerInput = new PlayerInput();
+            m_playerRotation = new PlayerRotation(Settings.turnSmoothVelocity, Settings.smoothRotationTime, Cam);
+            m_playerMovement = new PlayerMovement(GetComponent<CharacterController>());
+            m_playerAnimation = new PlayerAnimation(GetComponent<Animator>());
+            m_playerInteraction = GetComponent<PlayerInteraction>();
         }
 
         void InitStartState()
         {
-            _states = new PlayerStateFactory(this);
+            m_states = new PlayerStateFactory(this);
 
-            _currentState = _states.Idle();
-            _currentState.EnterState();
+            m_currentState = m_states.Idle();
+            m_currentState.EnterState();
         }
     }
 }

@@ -50,6 +50,8 @@ namespace TripleA.Runtime.Entity.Player
             if (_controller.PlayerInput.IsInteractPressed)
                 _controller.PlayerInteraction.Interact();
 
+            SetAim();
+
             CheckSwitchState();
         }
     }
